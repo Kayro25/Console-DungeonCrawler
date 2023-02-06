@@ -12,8 +12,8 @@ namespace DungeonCrawlerV1
 {
     public class Start
     {
-        static string JsonFile = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Placar.json");
-        static List<Jogador> Jogadores = JsonConvert.DeserializeObject<List<Jogador>>(JsonFile);
+        private static string JsonFile = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Placar.json");
+        private static List<Jogador> Jogadores = JsonConvert.DeserializeObject<List<Jogador>>(JsonFile);
         public static void ExecutarAventura()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -102,7 +102,7 @@ namespace DungeonCrawlerV1
             Console.ForegroundColor = ConsoleColor.White;
 
             List<Jogador> ListaOrdenada = Jogadores.OrderByDescending(x => x.XP).ToList();
-            
+
             foreach (Jogador jogador1 in ListaOrdenada)
             {
                 Console.WriteLine($"{jogador1.Nome} | {jogador1.XP}");
@@ -121,6 +121,31 @@ namespace DungeonCrawlerV1
             var JsonSerializado = JsonConvert.SerializeObject(Jogadores);
 
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Placar.json", JsonSerializado);
+        }
+
+        public static void CriarArquivos()
+        {
+            try
+            {
+                if (!File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\Placar.json"))
+                {
+                    string strJSON = "[{\"Nome\":\"Kayro\",\"XP\":\"100\"}]";
+
+                    StreamWriter escritor = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + @"\Placar.json");
+                    escritor.WriteLine(strJSON);
+                    escritor.Close();
+
+                    Console.WriteLine("Criou");
+                }
+                else
+                {
+                    Console.WriteLine("Não criou");
+                }
+            }
+            catch
+            {
+                Console.WriteLine("ERRO!");
+            }
         }
     }
 }
