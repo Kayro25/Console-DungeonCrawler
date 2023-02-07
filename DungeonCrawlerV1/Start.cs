@@ -134,17 +134,15 @@ namespace DungeonCrawlerV1
                     StreamWriter escritor = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + @"\Placar.json");
                     escritor.WriteLine(strJSON);
                     escritor.Close();
-
-                    Console.WriteLine("Criou");
                 }
                 else
                 {
-                    Console.WriteLine("Não criou");
+                    Console.WriteLine("ERRO!");
                 }
             }
             catch
             {
-                Console.WriteLine("ERRO!");
+                Console.WriteLine("ERRO! 2");
             }
         }
     }
